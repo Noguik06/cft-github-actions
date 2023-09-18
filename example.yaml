@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Lambda function ListBucketsCommand.
+Resources:
+  primer:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: miprimeralambda
+      Runtime: nodejs18.x
+      Role: !Sub arn:aws:iam::${AWS::AccountId}:role/my-lambda-role
+      Handler: index.handler
+      Code:
+        ZipFile: |
+          exports.handler = async function(event) {
+            return "hello world";
+          };
+      Description: List Amazon S3 buckets in us-east-1.
+      TracingConfig:
+        Mode: Active
+
+  segunda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: misegundalambda
+      Runtime: nodejs18.x
+      Role: !Sub arn:aws:iam::${AWS::AccountId}:role/my-lambda-role
+      Handler: index.handler
+      Code:
+        ZipFile: |
+          exports.handler = async function(event) {
+            return "hello world";
+          };
+      Description: List Amazon S3 buckets in us-east-1.
+      TracingConfig:
+        Mode: Active
+
+  MyEC2Instance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: "ami-79fd7eee"
+      KeyName: "testkey"
+      BlockDeviceMappings: 
+      - DeviceName: "/dev/sdm"
+        Ebs: 
+          VolumeType: "io1"
+          Iops: "200"
+          DeleteOnTermination: "false"
+          VolumeSize: "20"
+      - DeviceName: "/dev/sdk"
+        NoDevice: {}
