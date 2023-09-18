@@ -25,3 +25,10 @@ jobs:
         with:
           name: Prueba
           template: example.yaml
+      - name: Test deploy
+        uses: cosq-network/aws-cloudformation-deploy@v1.1.0
+        with:
+          stackName: Prueba
+          templateFile: example.yaml
+          hasIAMCapability: true
+          hasIAMNamedCapability: true
